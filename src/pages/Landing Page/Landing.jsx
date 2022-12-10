@@ -67,12 +67,7 @@ export default function Landing() {
           style={{ display: "flex", alignItems: "center", height: "100%" }}
           className={`${classes.header}`}
         >
-          <div
-            className={`${classes.headFirst}`}
-            onClick={(e) => {
-              navigate("/");
-            }}
-          >
+          <div className={`${classes.headFirst}`}>
             <Burger
               opened={!collapse}
               onClick={() => setCollapse((o) => !o)}
@@ -80,8 +75,12 @@ export default function Landing() {
               color={theme.colors.green[9]}
               mr="xl"
             />
-            <img src={Logo} alt="logo" className={classes.logo} />
-            <h2>Geo Collector</h2>
+            <div className={classes.logos} onClick={e => {
+              navigate('/');
+            }}>
+              <img src={Logo} alt="logo" className={classes.logo} />
+              <h2>Geo Collector</h2>
+            </div>
           </div>
           <DropDown />
         </div>

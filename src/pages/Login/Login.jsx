@@ -17,7 +17,7 @@ import { FunctionList } from "../../context/Context";
 
 export default function Login() {
   const [type, toggle] = useToggle(["login", "register"]);
-  const { setId, setIsAuth, setVerifiedAt, setEmail, setUsername, setToken } =
+  const { setId, setIsAuth, setVerifiedAt, setEmail, setUsername, setToken, setImageUrl } =
     useContext(FunctionList);
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,8 +70,7 @@ export default function Login() {
         setVerifiedAt(e.result.createdAt);
         setUsername(e.result.name);
         setToken(e.token)
-        // localStorage.setItem('isAuth', e.result.createdAt)
-        // localStorage.setItem('VerifiedAt', e.result.createdAt)
+        setImageUrl(e.user.profilePicture);
         localStorage.setItem("token", e.token);
         localStorage.setItem("name", e.name);
         navigate("/", {});
