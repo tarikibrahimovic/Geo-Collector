@@ -4,8 +4,70 @@ import { useMapEvents } from "react-leaflet"
 import ReactLeafletGoogleLayer from "react-leaflet-google-layer"
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import CloudinaryUploadWidget from "../helpers/CloudinaryUploadWidget"
+import L from "leaflet"
 import "react-image-crop/dist/ReactCrop.css"
 import "./Map.css"
+import plant from "../images/plant.png"
+import animal from "../images/paw.png"
+import food from "../images/food.png"
+import monument from "../images/monument.png"
+import park from "../images/park.png"
+import { Button } from "@mantine/core"
+
+const plantIcon = L.icon({
+  iconUrl: plant,
+  // shadowUrl: "leaf-shadow.png",
+
+  iconSize: [20, 40], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+})
+
+const animalIcon = L.icon({
+  iconUrl: animal,
+  // shadowUrl: "leaf-shadow.png",
+
+  iconSize: [30, 30], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [15, 30], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+})
+
+const foodIcon = L.icon({
+  iconUrl: food,
+  // shadowUrl: "leaf-shadow.png",
+
+  iconSize: [30, 30], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [15, 30], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+})
+
+const monumentIcon = L.icon({
+  iconUrl: monument,
+  // shadowUrl: "leaf-shadow.png",
+
+  iconSize: [30, 30], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [15, 30], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+})
+
+const parkIcon = L.icon({
+  iconUrl: park,
+  // shadowUrl: "leaf-shadow.png",
+
+  iconSize: [30, 30], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [15, 30], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+})
 
 const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 const predictionKey = process.env.REACT_APP_PREDICTION_KEY
@@ -42,7 +104,7 @@ const Map = () => {
 
   useEffect(() => {
     ;(async () => {
-      const response = await fetch("http://localhost:5000/markers")
+      const response = await fetch("http://localhost:5000/markers/")
       const data = await response.json()
       console.log(data)
       setMarkers(data.markers)
@@ -112,14 +174,45 @@ const Map = () => {
         }}
       >
         <ReactLeafletGoogleLayer apiKey={googleMapsApiKey} />
-        {markers.map((marker) => (
-          <Marker
-            key={marker._id}
-            position={[marker.latitude, marker.longitude]}
-          >
-            <Popup>{marker.description}</Popup>
-          </Marker>
-        ))}
+        {markers.map((marker) => {
+          let icon = null
+          switch (marker.category) {
+            case "monument":
+              icon = monumentIcon
+              break
+            case "animals":
+              icon = animalIcon
+              break
+            case "food":
+              icon = foodIcon
+              break
+            case "picnic area":
+              icon = parkIcon
+              break
+            case "plant":
+              icon = plantIcon
+              break
+            default:
+              icon = monumentIcon
+          }
+
+          return (
+            <Marker
+              key={marker._id}
+              position={[marker.latitude, marker.longitude]}
+              icon={icon}
+            >
+              <Popup>
+                <p className="pName">{marker.name}</p>
+                <img src={marker.image} alt="" className="popupImg" />
+                <p className="cat">
+                  Category: <span>{marker.category}</span>
+                </p>
+                <p className="pDesc">{marker.description}</p>
+              </Popup>
+            </Marker>
+          )
+        })}
         {newMarker && (
           <Marker
             ref={markerRef}
@@ -166,7 +259,9 @@ const Map = () => {
                       rows={5}
                     />
                   </div>
-                  <button type="submit">Add Marker</button>
+                  <Button color="teal" type="submit">
+                    Add Marker
+                  </Button>
                 </form>
               )}
             </div>
