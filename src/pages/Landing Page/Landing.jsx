@@ -9,18 +9,19 @@ import {
 
 import classes from "./Landing.module.css";
 import Home from "../Home Page/Home";
-import Logo from "../../images/logo.png"
+import Logo from "../../images/logo.png";
 import { useScroll } from "../../hooks/useScroll";
 import Footer from "../../components/Footer/Footer";
-import Nav from "../../components/NavBar/Navbar.jsx"
+import Nav from "../../components/NavBar/Navbar.jsx";
 import DropDown from "../../components/DropDown/DropDown";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
 export default function Landing() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(true);
   const [collapse, setCollapse] = useState(true);
   const scrollposition = useScroll();
+  const navigate = useNavigate();
 
   return (
     <AppShell
@@ -51,16 +52,27 @@ export default function Landing() {
             classes.navbar
           }`}
         >
-          <Nav/>
+          <Nav />
         </Navbar>
       }
     >
-      <Header height={{ base: 50, md: 70 }} p="md" className={`${classes.nav} ${(scrollposition < 20 || !collapse) ? classes.start : classes.end}`}>
+      <Header
+        height={{ base: 50, md: 70 }}
+        p="md"
+        className={`${classes.nav} ${
+          scrollposition < 20 || !collapse ? classes.start : classes.end
+        }`}
+      >
         <div
           style={{ display: "flex", alignItems: "center", height: "100%" }}
           className={`${classes.header}`}
         >
-          <div className={`${classes.headFirst}`}>
+          <div
+            className={`${classes.headFirst}`}
+            onClick={(e) => {
+              navigate("/");
+            }}
+          >
             <Burger
               opened={!collapse}
               onClick={() => setCollapse((o) => !o)}
@@ -68,14 +80,14 @@ export default function Landing() {
               color={theme.colors.green[9]}
               mr="xl"
             />
-            <img src={Logo} alt='logo' className={classes.logo}/>
+            <img src={Logo} alt="logo" className={classes.logo} />
             <h2>Geo Collector</h2>
           </div>
-          <DropDown/>
+          <DropDown />
         </div>
       </Header>
-      <Outlet/>
-      <Footer/>
+      <Outlet />
+      <Footer />
     </AppShell>
   );
 }

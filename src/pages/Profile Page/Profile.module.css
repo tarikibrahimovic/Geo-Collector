@@ -1,55 +1,74 @@
 .main{
     width: 100%;
     height: 80vh;
+    display: flex;
+    justify-content: center;
+    color: white;
 }
 
 .imgPanel{
     width: 100%;
     height: 100%;
     position: relative;
+    object-fit: cover;
 }
 
 .info{
     position: absolute;
-    width: 90%;
-    margin: 0 5%;
+    width: 500px;
     height: 70%;
     top: 17%;
-    background-color: #0B6A6E;
-    border-top-left-radius: 10%;
-    border-top-right-radius: 10%;
+    background-color: #0C1512;
     display: flex;
-    justify-content: top;
     align-items: center;
     flex-direction: column;
+    border-radius: 30px;
 }
 
 .avatar{
     border-radius: 50%;
-    width: 25%;
-    height: 30%;
+    width: auto;
+    height: 70%;
 }
 
-.username{
-    margin-top: 14%;
-    /* top: 3; */
+.avatar:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.fileInput{
+    width: 400px;
+    color: white;
+}
+
+.avatarCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 4%;
+    height: 40%;
 
 }
 
 .usernameContainer{
     display: flex;
-    align-items: top;
+    flex-direction: column;
 }
 
 .userInfo{
     width: 100%;
     height: 70%;
     display: flex;
+    flex-direction: column;
+}
+
+.name{
+    margin-top: 3%;
 }
 
 .left, .right{
     width: 50%;
-    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     margin-top: 5%;
@@ -73,10 +92,11 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 
 .delImgBtn{
     margin-top: 30px;
     /* vertical-align: middle; */
+    padding: 5px 10px;
 }
