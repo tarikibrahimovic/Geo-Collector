@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FunctionList } from "../../context/Context";
 import classes from "./Profile.module.css";
 import Landscape from "../../images/landscape.jpg";
@@ -6,6 +6,10 @@ import Avatar from "../../images/avatar.png";
 import Modal from "react-modal";
 import { NotificationManager } from "react-notifications";
 import { Button } from "@mantine/core";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { FileInput } from "@mantine/core";
+import axios from "axios";
 
 const customStyles = {
   content: {
@@ -19,14 +23,33 @@ const customStyles = {
   },
 };
 
+
 export default function Profile() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newImage, setNewImage] = useState();
-
-  const { imageUrl, id, username, email, verifiedAt } =
-    useContext(FunctionList);
-  //   let verifiedAt = localStorage.getItem('verifiedAt')
-
+  
+  const { imageUrl, id, username, email, verifiedAt, token, setImageUrl } =
+  useContext(FunctionList);
+  
+  async function PostImage() {
+    try {
+      const bodyFormData = new FormData();
+      bodyFormData.append("ProfilePicture", newImage);
+      let res = await axios.put(
+        "http://localhost:5000/user/profilepic",
+        bodyFormData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      NotificationManager.success("", "Image Succesfully Added!");
+      setImageUrl(res.data.pictureUrl);
+    } catch (error) {
+      NotificationManager.error("", `${error}`);
+    }
+  }
   function openModal() {
     setIsOpen(true);
   }
@@ -34,6 +57,11 @@ export default function Profile() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    AOS.init();
+    window.scrollTo({ top: 0 });
+  }, []);
 
   function afterOpenModal() {}
   return (
@@ -45,15 +73,12 @@ export default function Profile() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <label for="file_input">Upload file</label>
-        <input
-          id="file_input"
-          type="file"
-          onChange={(e) => {
-            if (e.target.files[0]) setNewImage(e.target.files[0]);
-            else {
-              NotificationManager.error("", "Uploud something!");
-            }
+        <FileInput
+          placeholder="Upload files"
+          multiple
+          className={classes.fileInput}
+          onChange={e => {
+            setNewImage(e.target.files[0])
           }}
         />
         <div className={classes.btnSelectModal}>
@@ -69,6 +94,7 @@ export default function Profile() {
             color="teal"
             onClick={(e) => {
               closeModal();
+              PostImage()
             }}
           >
             Upload
@@ -76,51 +102,73 @@ export default function Profile() {
         </div>
       </Modal>
       <img src={Landscape} alt="" className={classes.imgPanel} />
-      <div className={classes.info}>
-        <img
-          src={imageUrl ? imageUrl : Avatar}
-          alt=""
-          className={classes.avatar}
-          onClick={(e) => {
-            openModal();
-          }}
-        />
-        {true && (<Button
-            color="teal"
-            className={classes.delImgBtn}
+      <div className={classes.info} data-aos="fade-left">
+        <div className={classes.avatarCard}>
+          <img
+            src={imageUrl ? imageUrl : Avatar}
+            alt=""
+            className={classes.avatar}
             onClick={(e) => {
-              closeModal();
+              openModal();
             }}
+          />
+          {/* <Avatar
+            sx={{
+              width: "100px",
+              height: "100px",
+              backgroundColor: stringToColor(username),
+            }}
+            alt={username}
+            src={imageUrl}
           >
-            Delete Picture
-          </Button>)}
+            {username.charAt(0)}
+          </Avatar> */}
+          {true && (
+            <Button
+              color="teal"
+              className={classes.delImgBtn}
+              onClick={(e) => {
+                closeModal();
+              }}
+            >
+              Delete Picture
+            </Button>
+          )}
+        </div>
+
         <div className={classes.usernameContainer}>
-          <h3 className={classes.username}>{username}</h3>
+          <h1 className={classes.name}>{username}</h1>
         </div>
         <div className={classes.userInfo}>
-          <div className={classes.left}>
-            <div className={classes.informations}>
-              <div className=""><b>Username: </b> </div>
-              <div className="">{username}</div>
+          <div className={classes.informations}>
+            <div className="">
+              <b>Username: </b>{" "}
             </div>
-            <div className={classes.informations}>
-              <div className=""><b>ID: </b></div>
-              <div className="">{id}</div>
-            </div>
+            <div className="">{username}</div>
           </div>
-          <div className={classes.right}>
-            <div className={classes.informations}>
-              <div className=""><b>Email: </b></div>
-              <div className="">{email}</div>
+          <div className={classes.informations}>
+            <div className="">
+              <b>ID: </b>
             </div>
-            <div className={classes.informations}>
-              <div className=""><b>Verified At: </b></div>
-              <div className="">{verifiedAt}</div>
+            <div className="">{id}</div>
+          </div>
+          <div className={classes.informations}>
+            <div className="">
+              <b>Email: </b>
             </div>
-            <div className={classes.informations}>
-              <div className=""><b>Active: </b></div>
-              <div className="">True</div>
+            <div className="">{email}</div>
+          </div>
+          <div className={classes.informations}>
+            <div className="">
+              <b>Verified At: </b>
             </div>
+            <div className="">{verifiedAt?.slice(0, 10)}</div>
+          </div>
+          <div className={classes.informations}>
+            <div className="">
+              <b>Active: </b>
+            </div>
+            <div className="">True</div>
           </div>
         </div>
       </div>
