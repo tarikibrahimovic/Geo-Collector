@@ -129,9 +129,9 @@ const Map = () => {
             </div>
 
             <div className="formBody">
-              {uploadStep && (
-                <CloudinaryUploadWidget onImageUpload={imageUploadHandler} />
-              )}
+              {/* {uploadStep && ( */}
+              <CloudinaryUploadWidget onImageUpload={imageUploadHandler} />
+              {/* )} */}
             </div>
           </div>
         )}
