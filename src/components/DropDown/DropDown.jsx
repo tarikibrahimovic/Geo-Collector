@@ -58,7 +58,7 @@ export default function DropDown() {
   return (
     <>
       {isAuth ? (
-        <Group position="center">
+        <Group position="center" className={classes.main}>
           <Menu withArrow>
             <Menu.Target>
               <UserButton
@@ -67,7 +67,6 @@ export default function DropDown() {
                 email={email}
               />
             </Menu.Target>
-            {/* ...Menu.Items */}
             <Menu.Dropdown>
               <Menu.Item component="a" href="/profile">
                 Profile
@@ -77,8 +76,8 @@ export default function DropDown() {
                 icon={<IconExternalLink size={14} />}
                 component="a"
                 onClick={(e) => {
-                    Logout();
-                    navigate("/login", {})
+                  Logout();
+                  navigate("/login")
                 }}
               >
                 Log Out
@@ -93,6 +92,7 @@ export default function DropDown() {
             color="cyan"
             className={`${classes.btn}`}
             onClick={(e) => {
+              e.preventDefault()
               navigate("/login", {});
             }}
           >
@@ -101,11 +101,12 @@ export default function DropDown() {
           <Button
             color="teal"
             onClick={(e) => {
-              navigate("/login", {
-                state: {
-                  type: "register",
-                },
-              });
+              e.preventDefault()
+              navigate('/login', {
+                state:{
+                  type: 'register'
+                }
+              })
             }}
           >
             Sign In

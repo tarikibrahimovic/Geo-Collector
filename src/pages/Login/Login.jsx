@@ -133,6 +133,7 @@ export default function Login() {
           })}
           className={classes.form}
         >
+          <h1 className={classes.title}>{!(type === 'register') ? "Log In" : "Register"}</h1>
           <Stack>
             {type === "register" && (
               <TextInput
@@ -198,16 +199,6 @@ export default function Login() {
                 }
               />
             )}
-
-            {/* {type === "register" && (
-              <Checkbox
-                label="I accept terms and conditions"
-                checked={form.values.terms}
-                onChange={(event) =>
-                  form.setFieldValue("terms", event.currentTarget.checked)
-                }
-              />
-            )} */}
           </Stack>
 
           <Group position="apart" mt="xl">
@@ -226,6 +217,13 @@ export default function Login() {
               {upperFirst(type)}
             </Button>
           </Group>
+          {type !== "register" && (<><hr/>
+          <Button type="submit" className={classes.btn1} onClick={e =>{
+            navigate('/');
+          }}>
+              log In Like a Guest
+            </Button>
+          </>)}
         </form>
       </div>
     </div>
