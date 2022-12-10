@@ -6,6 +6,7 @@ import Layerstack from "../../images/layerstack.png";
 import Overview from "../../images/overview.png";
 import { Button } from "@mantine/core";
 import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router";
 
 export default function Home() {
 
@@ -14,6 +15,7 @@ export default function Home() {
     window.scrollTo({ top: 0});
   }, []);
 
+  const navigate = useNavigate()
 
 
   return (
@@ -73,7 +75,9 @@ export default function Home() {
       </div>
       <div className={classes.info3}>
             <h1 className={classes.final} data-aos="fade-left">See What We Have Done!</h1>
-            <Button color="teal" data-aos="fade-right">Go to Maps!</Button>  
+            <Button color="teal" data-aos="fade-right" onClick={() => {
+              navigate('/map')
+            }}>Go to Maps!</Button>  
       </div>
     </>
   );

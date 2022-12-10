@@ -23,12 +23,22 @@ export default function Navbar() {
         </li>
         <li className={classes.lis}>
           <NavLink
-            to="/layout/manga"
+            to="/map"
             className={({ isActive }) =>
               isActive ? classes.active : classes.li
             }
           >
-            Manga
+            Map
+          </NavLink>
+        </li>
+        <li className={classes.lis}>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? classes.active : classes.li
+            }
+          >
+            Profile
           </NavLink>
         </li>
       </ul>

@@ -9,6 +9,7 @@ import { FunctionList } from "./context/Context"
 import Profile from "./pages/Profile Page/Profile"
 import Home from "./pages/Home Page/Home"
 import Modal from "react-modal"
+import MapPage from "./pages/Map Page/MapPage"
 
 Modal.setAppElement("#root")
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/" element={<Landing />}>
           <Route path="" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/map" element={<MapPage />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

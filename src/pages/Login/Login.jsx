@@ -62,6 +62,7 @@ export default function Login() {
         return e.json();
       })
       .then((e) => {
+        console.log(e);
         NotificationManager.success("", "Succesfully Loged In!");
         setEmail(e.result.email);
         setId(e.result.id);
@@ -99,6 +100,7 @@ export default function Login() {
         return e.json();
       })
       .then((e) => {
+        console.log(e);
         NotificationManager.success("", "Succesfully registered!");
         setEmail(e.result.email);
         setId(e.result.id);
@@ -138,7 +140,7 @@ export default function Login() {
               <TextInput
                 label="First Name"
                 placeholder="Your name"
-                value={form.values.name}
+                value={form.values.firstName}
                 onChange={(event) =>
                   form.setFieldValue("name", event.currentTarget.value)
                 }
