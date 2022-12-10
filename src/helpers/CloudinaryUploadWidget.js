@@ -5,7 +5,7 @@ let a = 0
 class CloudinaryUploadWidget extends Component {
   componentDidMount() {
     a++
-    console.log(a)
+    // console.log(a)
     const cloudName = "dxqmgmmlx" // replace with your own cloud name
     const uploadPreset = "uobzglyj" // replace with your own upload preset
 
@@ -33,7 +33,6 @@ class CloudinaryUploadWidget extends Component {
         // theme: "purple", //change to a purple theme
       },
       (error, result) => {
-        console.log(myWidget)
         if (!error && result && result.event === "success") {
           myWidget.close()
           myWidget.minimize()

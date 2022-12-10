@@ -10,6 +10,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { FileInput } from "@mantine/core";
 import axios from "axios";
+import CloudinaryUploadWidget from "../../helpers/CloudinaryUploadWidget.js"
 
 const customStyles = {
   content: {
@@ -28,27 +29,48 @@ export default function Profile() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newImage, setNewImage] = useState();
   
-  const { imageUrl, id, username, email, verifiedAt, token, setImageUrl } =
+  const { imageUrl, id, username, email, verifiedAt, setImageUrl } =
   useContext(FunctionList);
   
-  async function PostImage() {
-    try {
-      const bodyFormData = new FormData();
-      bodyFormData.append("ProfilePicture", newImage);
-      let res = await axios.put(
-        "http://localhost:5000/user/profilepic",
-        bodyFormData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      NotificationManager.success("", "Image Succesfully Added!");
-      setImageUrl(res.data.pictureUrl);
-    } catch (error) {
-      NotificationManager.error("", `${error}`);
-    }
+  // async function PostImage() {
+  //   try {
+  //     // const bodyFormData = new FormData();
+  //     // bodyFormData.append("ProfilePicture", newImage);
+  //     let res = await axios.put(
+  //       "http://localhost:5000/user/profilepic",
+  //       bodyFormData,
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + token,
+  //         },
+  //       }
+  //     );
+  //     NotificationManager.success("", "Image Succesfully Added!");
+  //     // setImageUrl(res.data.pictureUrl);
+  //   } catch (error) {
+  //     NotificationManager.error("", `${error}`);
+  //   }
+  // }
+  let image
+  // console.log(token)
+  function PostImage(){
+    console.log(image);
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem('token') 
+      },
+      body: JSON.stringify({
+        profilePicture: image
+      }),
+    };
+    fetch("http://localhost:5000/user/profilepic", requestOptions).then((e) => {
+      console.log(e);
+      return e.json()
+    }).then((e) => {
+      console.log(e)
+    })
   }
   function openModal() {
     setIsOpen(true);
@@ -63,10 +85,11 @@ export default function Profile() {
     window.scrollTo({ top: 0 });
   }, []);
 
+  image = imageUrl
   function afterOpenModal() {}
   return (
     <div className={classes.main}>
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -100,7 +123,7 @@ export default function Profile() {
             Upload
           </Button>
         </div>
-      </Modal>
+      </Modal> */}
       <img src={Landscape} alt="" className={classes.imgPanel} />
       <div className={classes.info} data-aos="fade-left">
         <div className={classes.avatarCard}>
@@ -112,6 +135,11 @@ export default function Profile() {
               openModal();
             }}
           />
+            <CloudinaryUploadWidget onImageUpload={(e) => {
+              image = e;
+              setImageUrl(e)
+              PostImage()
+            }}/>
           {/* <Avatar
             sx={{
               width: "100px",
@@ -123,7 +151,7 @@ export default function Profile() {
           >
             {username.charAt(0)}
           </Avatar> */}
-          {true && (
+          {/* {true && (
             <Button
               color="teal"
               className={classes.delImgBtn}
@@ -133,7 +161,7 @@ export default function Profile() {
             >
               Delete Picture
             </Button>
-          )}
+          )} */}
         </div>
 
         <div className={classes.usernameContainer}>

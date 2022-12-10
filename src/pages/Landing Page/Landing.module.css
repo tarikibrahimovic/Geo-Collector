@@ -16,6 +16,10 @@
     background-color: #B6E0EA;
 }
 
+.logos{
+    display: flex;
+}
+
 .nav{
     background: #B6E0EA;
     color: #0B6A6E;

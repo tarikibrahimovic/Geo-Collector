@@ -22,6 +22,7 @@ function App() {
     setUsername,
     setToken,
     token,
+    setImageUrl
   } = useContext(FunctionList)
   useEffect(() => {
     if (token === undefined && localStorage.getItem("token")?.length > 8) {
@@ -34,18 +35,17 @@ function App() {
 
       fetch("http://localhost:5000/user/verify", requestOptions)
         .then((e) => {
-          console.log(e)
           return e.json()
         })
         .then((e) => {
-          console.log(e)
           setEmail(e.user.email)
           setId(e.user._id)
           setIsAuth(true)
           setVerifiedAt(e.user.createdAt)
           setUsername(e.user.name)
           setToken(e.token)
-          console.log(e.user.createdAt)
+          setImageUrl(e.user.profilePicture)
+          localStorage.setItem('picUrl', e.profilePicture)
           localStorage.setItem("name", e.user.name)
           localStorage.setItem("varifiedAt", e.user.createdAt)
         })
