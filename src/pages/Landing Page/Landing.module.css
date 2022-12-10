@@ -1,0 +1,57 @@
+.active{
+    transition: 0.3s ease-in;
+    transform: translate(-200px);
+}
+
+.deactive{
+    transition: 0.3s ease-in;
+}
+
+.devide{
+    border: 1px solid red;
+}
+
+.navbar{
+    width: 200px;
+    background-color: #B6E0EA;
+}
+
+.nav{
+    background: #B6E0EA;
+    color: #0B6A6E;
+}
+
+.logo{
+    width: 40px;
+    height: auto;
+}
+
+.nav:hover{
+    opacity: 1;
+    transition: 0.2s ease;
+    background: #B6E0EA;
+}
+
+.start{
+    opacity: 1;
+}
+
+.end{
+    opacity: 0.6;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.headFirst{
+    display: flex;
+}
+
+.btn{
+    margin-right: 2%;
+}
+.btnContainer{
+    display: flex;
+}

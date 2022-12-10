@@ -1,0 +1,134 @@
+.panel{
+    width: 100%;
+    height: 100%;
+}
+
+.panelContainer{
+    width: auto;
+    height: auto;
+}
+
+.panelTitle{
+    margin-bottom: 5%;
+}
+
+.imgPanel{
+    position: relative;
+    margin-bottom: -4px;
+}
+
+.panelTitleContainer{
+    position: absolute;
+    width: 100%;
+    padding-top: 15%;
+    display: flex;
+    justify-content: center;
+    top: 10%;
+    color: #0B6A6E;
+}
+
+.cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 10;
+}
+
+.imgInfo{
+    width: 100%;
+}
+
+.imgInfo1{
+    width: 50%;
+}
+
+.info1{
+    display: flex;
+    width: 100%;
+    height: 60vh;
+    background-color: #052726;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -5px;
+}
+
+.info2{
+    display: flex;
+    width: 100%;
+    height: 60vh;
+    background-color: #0C1512;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoHalf{
+    width: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+
+.info1, .info2, .info3{
+    overflow: hidden;
+}
+
+.info3{
+    display: flex;
+    width: 100%;
+    height: 60vh;
+    background-color: #0C4244;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.infoHalf1{
+    width: 50%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoPar{
+    margin-top: 60px;
+    padding: 0 50px;
+}
+
+.final{
+    margin-bottom: 5%;
+}
+
+@media only screen and (max-width: 640px){
+    .panelTitle{
+        position: relative;
+        font-size: 1.5rem;
+    }
+    .btn{
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+    .info1, .info2, .info3{
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        padding: 30px 0;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .panelTitle{
+        position: relative;
+        font-size: 1rem;
+    }
+    .btn{
+        font-size: 0.4rem;
+        padding: 1px 13px;
+    }
+}

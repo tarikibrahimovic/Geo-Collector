@@ -1,0 +1,55 @@
+.main{
+    width: 100%;
+    height: 15vh;
+    background-color: #0C1512;
+    display: flex;
+}
+
+.logo{
+    width: 5vw;
+    height: 5vh;
+}
+
+.name{
+    color: #0B6A6E;
+}
+
+.left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.right{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    padding: 0 15%;
+}
+
+.link{
+    text-decoration: none;
+    color: #0B6A6E;
+}
+
+@media only screen and (max-width: 640px){
+    .main{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .right{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        padding: 0;
+    }
+}
