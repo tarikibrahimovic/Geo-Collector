@@ -41,7 +41,7 @@ export default function Navbar() {
             Log In/ Sign In
           </NavLink>
         </li>
-        <li className={classes.lis + " " + classes.hidden}>
+        <li className={classes.lis}>
           <NavLink
             to="/profile"
             className={({ isActive }) =>

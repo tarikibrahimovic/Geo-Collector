@@ -109,7 +109,7 @@ export default function Login() {
         setToken(e.token)
         localStorage.setItem("token", e.token);
         localStorage.setItem("name", e.name);
-        navigate("/", {});
+        navigate("/");
       })
       .catch((e) => {
         console.log(e);

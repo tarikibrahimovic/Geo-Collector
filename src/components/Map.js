@@ -97,7 +97,7 @@ const Map = () => {
   const markerRef = useRef(null)
 
   const setMarkerHandler = (lat, lng) => {
-    if (formVisible) return
+    if (formVisible || !localStorage.getItem("token")) return
     setNewMarker({ lat, lng })
     setFormVisible(true)
   }
@@ -138,6 +138,7 @@ const Map = () => {
     setNewMarker(null)
     setDescription("")
     setName("")
+    setImageCategory(null)
   }
 
   const recognizeImage = useCallback(async (imageUrl) => {

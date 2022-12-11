@@ -21,6 +21,7 @@ function ContextProvider({ children }) {
     setEmail()
     setVerifiedAt()
     setImageUrl()
+    localStorage.removeItem("token")
   }
 
   const values = {
