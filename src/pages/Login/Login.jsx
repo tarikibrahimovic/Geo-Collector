@@ -70,7 +70,7 @@ export default function Login() {
         setVerifiedAt(e.result.createdAt);
         setUsername(e.result.name);
         setToken(e.token)
-        setImageUrl(e.user.profilePicture);
+        setImageUrl(e.user?.profilePicture);
         localStorage.setItem("token", e.token);
         localStorage.setItem("name", e.name);
         navigate("/", {});
