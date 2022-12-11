@@ -22,7 +22,7 @@ function App() {
     setUsername,
     setToken,
     token,
-    setImageUrl
+    setImageUrl,
   } = useContext(FunctionList)
   useEffect(() => {
     if (token === undefined && localStorage.getItem("token")?.length > 8) {
@@ -45,7 +45,7 @@ function App() {
           setUsername(e.user.name)
           setToken(e.token)
           setImageUrl(e.user.profilePicture)
-          localStorage.setItem('picUrl', e.profilePicture)
+          localStorage.setItem("picUrl", e.profilePicture)
           localStorage.setItem("name", e.user.name)
           localStorage.setItem("varifiedAt", e.user.createdAt)
         })
